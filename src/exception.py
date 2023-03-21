@@ -12,7 +12,7 @@ def error_message_detail(error , error_detail:sys):
 
 
 
-class CustomeException(Exception):
+class CustomException(Exception):
     def __init__(self , error_meassage , error_detail:sys):
         super().__init__(error_meassage)
         self.error_meassage = error_message_detail(error_meassage 
@@ -29,6 +29,6 @@ if __name__ == '__main__':
 
     except Exception as e : 
         logging.info('Divide by Zero')
-        raise CustomeException(e, sys)
+        raise CustomException(e, sys)
 
- 
+# is working here 

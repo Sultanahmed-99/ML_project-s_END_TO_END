@@ -16,8 +16,14 @@ logging.basicConfig(
 
     filename=LOG_FILE_PATH , 
     format= '%(asctime)s [%(levelname)s] %(name)s: %(message)s' , 
-    level= logging.INFO,
+    level= logging.INFO
+    
+    )
 
 
-)
- 
+if __name__ == '__main__':
+    print(LOG_FILE_PATH)
+
+
+
+# it working here 

@@ -1,15 +1,18 @@
+
 import os
 import sys
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
-from src.exception import CustomeException
-from src.logger import logging
 from src.components.data_transformation import DataTransformation , DataTransformationConfig
+from src.components.model_trainer import ModelTrainerConfig ,  ModelTrainer 
+from src.exception import CustomException
+from src.logger import logging
 
 @dataclass
 class DataIngestionConfig:
     """Class defining the configuration for data ingestion."""
+  
     train_data_path: str = os.path.join("artifacts", "train.csv")
     test_data_path: str = os.path.join("artifacts", "test.csv")
     raw_data_path: str = os.path.join("artifacts", "data.csv")
@@ -24,7 +27,6 @@ class DataIngestion:
 
     def initiate_data_ingestion(self):
         """Reads a CSV file, performs a train-test split, and saves the resulting datasets to disk.
-
         Returns:
             Tuple of file paths to the training and testing datasets.
         """
@@ -56,7 +58,7 @@ class DataIngestion:
             )
         except Exception as e:
             # If an exception occurs during the data ingestion process, raise a custom exception
-            raise CustomeException(e, sys)
+            raise CustomException(e  , sys)
 
 
 ## Just for Testing ##
@@ -64,4 +66,6 @@ if __name__ == '__main__':
     obj = DataIngestion()
     train_data , test_data = obj.initiate_data_ingestion()
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data, test_data) 
+    train_arr , test_arr,_ = data_transformation.initiate_data_transformation(train_data, test_data) 
+    model_trainer = ModelTrainer()
+    print(model_trainer.initiates_model_trainer(train_arr, test_arr) )
